@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ぴよちゃんアプリ</title>
+  <meta name="csrf-token" content="<%= form_authenticity_token %>">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    const birdImages = {
+      healthy: "<%= asset_path('bird_healthy.png') %>",
+      normal: "<%= asset_path('bird_image.png') %>",
+      tired: "<%= asset_path('bird_tired.png') %>",
+      exhausted: "<%= asset_path('bird_exhausted.png') %>"
+    };
+
+    $(document).ready(function () {
+      const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+      function updateBirdImage(health) {
+        let imagePath;
+
+        if (health >= 95) {
+          imagePath = birdImages.healthy;
+        } else if (health <= 94 && health >= 51) {
+          imagePath = birdImages.normal;
+        } else if (health <= 50 && health > 0) {
+          imagePath = birdImages.tired;
+        } else if (health === 0) {
+          imagePath = birdImages.exhausted;
+        }
+
+        console.log("Updating image to:", imagePath);
+        $("#bird-image").attr("src", imagePath);
+      }
+
+      // 5秒ごとに体力を減少させ、表示を更新
+      setInterval(function () {
+        $.ajax({
+          url: "/birds/decrease_health",
+          type: "POST",
+          headers: { 'X-CSRF-Token': csrfToken },
+          success: function (response) {
+            $("#health").text(response.health);
+            updateBirdImage(response.health);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error updating health:", status, error);
+          }
+        });
+      }, 5000);
+
+      // 「エサをあげる」ボタンの動作
+      $("#feed-button").click(function () {
+        $.ajax({
+          url: "/birds/feed",
+          type: "POST",
+          headers: { 'X-CSRF-Token': csrfToken },
+          success: function (response) {
+            $("#health").text(response.health);
+            updateBirdImage(response.health);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error feeding bird:", status, error);
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>ぴよちゃん</h1>
+  <div>
+    <img id="bird-image" src="<%= asset_path('bird_healthy.png') %>" alt="ぴよちゃん">
+  </div>
+  <div>
+    <h2>体力: <span id="health"><%= @bird.health %></span></h2>
+    <button id="feed-button">エサをあげる</button>
+  </div>
+</body>
+</html>
+
