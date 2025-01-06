@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.8'
+ruby '3.2.2'
 
 gem 'rails', '~> 5.2.3'
 gem 'sqlite3'
@@ -19,7 +19,7 @@ end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '~> 3.7.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   # activate these gems
@@ -29,7 +29,6 @@ group :development do
   gem 'pry-byebug' # use step over on binding.pry
   gem 'pry-doc' # extend pry document support
   gem 'rubocop'
-  gem 'rails_best_practices'
 end
 
 group :test do
