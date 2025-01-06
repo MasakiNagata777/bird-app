@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>名前を編集</title>
+</head>
+<body>
+  <h1>名前を編集</h1>
+  <%= form_with url: update_name_birds_path, method: :patch do |form| %>
+    <div>
+      <label for="bird_name">名前:</label>
+      <%= form.text_field :name, id: "bird_name", value: @bird.name %>
+    </div>
+    <div>
+      <%= form.submit "名前変更（デフォルト: ぴよちゃん）" %>
+    </div>
+  <% end %>
+
+  <!-- トップへ戻るリンク -->
+  <div>
+    <a href="<%= root_path %>">トップへ戻る</a>
+  </div>
+</body>
+</html>

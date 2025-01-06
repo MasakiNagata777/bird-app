@@ -3,6 +3,7 @@
 <head>
   <title>ぴよちゃんアプリ</title>
   <meta name="csrf-token" content="<%= form_authenticity_token %>">
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     const birdImages = {
@@ -20,9 +21,9 @@
 
         if (health >= 18) {
           imagePath = birdImages.healthy;
-        } else if (health <= 17 && health >= 11) {
+        } else if (health >= 11 && health <= 17) {
           imagePath = birdImages.normal;
-        } else if (health <= 10 && health > 0) {
+        } else if (health >= 1 && health <= 10) {
           imagePath = birdImages.tired;
         } else if (health === 0) {
           imagePath = birdImages.exhausted;
@@ -67,8 +68,12 @@
   </script>
 </head>
 <body>
-  <h1>ぴよちゃん</h1>
+  <!-- 右上に設定リンクを追加 -->
+  <div style="position: absolute; top: 10px; right: 10px;">
+    <a href="<%= edit_name_birds_path %>">設定</a>
+  </div>
 
+  <h2>名前: <%= @bird.name %></h2>
   <!-- 小鳥の画像表示 -->
   <div>
     <img id="bird-image" src="<%= asset_path('bird_healthy.png') %>" alt="ぴよちゃん">
