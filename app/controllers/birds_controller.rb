@@ -5,14 +5,14 @@ class BirdsController < ApplicationController
 
   def feed
     @bird = Bird.first
-    new_health = [@bird.health + 20, 100].min # 最大値を100に制限
+    new_health = [@bird.health + 5, 20].min # 最大値を20に制限
     @bird.update(health: new_health)
     render json: { health: new_health }
   end
 
   def decrease_health
     @bird = Bird.first
-    new_health = [@bird.health - 1, 0].max
+    new_health = [@bird.health - 1, 0].max # 最小値を0に制限
     @bird.update(health: new_health)
     render json: { health: new_health }
   end
