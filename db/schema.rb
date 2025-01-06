@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2025_01_06_141244) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "birds", force: :cascade do |t|
     t.string "name"
     t.integer "health"
@@ -30,10 +33,11 @@ ActiveRecord::Schema.define(version: 2025_01_06_141244) do
   create_table "comments", force: :cascade do |t|
     t.string "name"
     t.text "content", null: false
-    t.integer "blog_id"
+    t.bigint "blog_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["blog_id"], name: "index_comments_on_blog_id"
   end
 
+  add_foreign_key "comments", "blogs"
 end
