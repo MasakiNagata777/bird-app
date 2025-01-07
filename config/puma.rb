@@ -14,8 +14,8 @@ environment ENV.fetch("RAILS_ENV") { "production" }
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 state_path ENV.fetch("STATEFILE") { "tmp/pids/server.state" }
 
-# Workers (useful for multi-threaded environments)
-workers ENV.fetch("WEB_CONCURRENCY") { 4 }
+# Workers (useful for multi-threaded environments)以下変更4→１
+workers ENV.fetch("WEB_CONCURRENCY") { 1 }
 
 # Preload app for workers
 preload_app!
@@ -36,3 +36,7 @@ end
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 state_path ENV.fetch("STATEFILE") { "tmp/pids/server.state" }
 
+# 以下追加
+max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+threads min_threads_count, max_threads_count
