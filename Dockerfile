@@ -13,10 +13,12 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 
 # 必要なGemをインストール
-RUN bundle install --without development test
+RUN bundle install
 
 # プロジェクト全体をコピー
 COPY . .
 
 # デフォルトコマンドを指定
 CMD ["bash"]
+
+ENV EDITOR=vim
