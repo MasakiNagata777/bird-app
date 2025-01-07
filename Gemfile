@@ -16,6 +16,11 @@ gem 'net-imap'
 gem 'net-pop'
 gem 'net-smtp'
 
+# Postgresが必要うおおおおおおおおおお
+group :production do
+  gem 'pg'
+end
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

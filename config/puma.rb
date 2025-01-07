@@ -15,7 +15,7 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 state_path ENV.fetch("STATEFILE") { "tmp/pids/server.state" }
 
 # Workers (useful for multi-threaded environments)
-workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 4 }
 
 # Preload app for workers
 preload_app!

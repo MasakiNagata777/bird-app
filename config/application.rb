@@ -6,6 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+  # Hosts を追加
+    config.hosts << 'https://bird-app-1-9ij3.onrender.com'
+
 module Exam01:Bugfix
   class Application < Rails::Application
     config.load_defaults 5.2
