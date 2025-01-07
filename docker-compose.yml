@@ -9,6 +9,8 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    environment:
+      SECRET_KEY_BASE: "9f4365fb210b3fcdba2d18ed1afa80a96c783014425edfbbc7f5dceea0418397311893e87d02281b88375b6feb347c04df9dd3a901f3dee67e2244812dd85cf6" # ここに追加
   db:
     image: postgres:15
     environment:
@@ -17,3 +19,4 @@ services:
       POSTGRES_DB: bird_app_development
     ports:
       - "5432:5432"
+
