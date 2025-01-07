@@ -32,3 +32,7 @@ end
 on_worker_boot do
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 end
+
+pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+state_path ENV.fetch("STATEFILE") { "tmp/pids/server.state" }
+
