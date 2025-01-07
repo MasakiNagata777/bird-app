@@ -40,3 +40,7 @@ state_path ENV.fetch("STATEFILE") { "tmp/pids/server.state" }
 max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
 threads min_threads_count, max_threads_count
+
+# E以下追加以下追加以下追加以下追加
+directory = "tmp/pids"
+FileUtils.mkdir_p(directory) unless File.directory?(directory)
